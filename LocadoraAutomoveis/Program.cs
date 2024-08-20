@@ -1,3 +1,6 @@
+using System.Reflection;
+using LocadoraAutomoveis.Infra.Orm.Compartilhado;
+
 namespace LocadoraAutomoveis.WebApp;
 
 public class Program
@@ -5,6 +8,13 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddDbContext<LocadoraDbContext>();
+
+        builder.Services.AddAutoMapper(cfg =>
+        {
+            cfg.AddMaps(Assembly.GetExecutingAssembly());
+        });
 
         builder.Services.AddControllersWithViews();
 
