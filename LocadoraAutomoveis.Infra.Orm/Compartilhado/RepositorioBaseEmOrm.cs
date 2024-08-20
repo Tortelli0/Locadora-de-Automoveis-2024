@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infra.Orm.Compartilhado;
 
 public abstract class RepositorioBaseEmOrm<TEntidade> where TEntidade : EntidadeBase
 {
-    protected readonly LocadoraAutomoveisDbContext _dbContext;
+    protected readonly LocadoraDbContext dbContext;
 
-    protected RepositorioBaseEmOrm(LocadoraAutomoveisDbContext dbContext)
+    protected RepositorioBaseEmOrm(LocadoraDbContext dbContext)
     {
-        this._dbContext = dbContext;
+        this.dbContext = dbContext;
     }
 
     protected abstract DbSet<TEntidade> ObterRegistros();
@@ -21,21 +18,21 @@ public abstract class RepositorioBaseEmOrm<TEntidade> where TEntidade : Entidade
     {
         ObterRegistros().Add(entidade);
 
-        _dbContext.SaveChanges();
+        dbContext.SaveChanges();
     }
 
     public void Editar(TEntidade entidade)
     {
         ObterRegistros().Update(entidade);
 
-        _dbContext.SaveChanges();
+        dbContext.SaveChanges();
     }
 
     public void Excluir(TEntidade entidade)
     {
         ObterRegistros().Remove(entidade);
 
-        _dbContext.SaveChanges();
+        dbContext.SaveChanges();
     }
 
     public virtual TEntidade? SelecionarPorId(int id)

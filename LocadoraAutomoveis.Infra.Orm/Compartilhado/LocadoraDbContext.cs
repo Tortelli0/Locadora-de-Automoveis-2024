@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace LocadoraAutomoveis.Infra.Orm.Compartilhado;
 
-public class LocadoraAutomoveisDbContext : IdentityDbContext<Usuario, Perfil, int>
+public class LocadoraDbContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -20,8 +16,6 @@ public class LocadoraAutomoveisDbContext : IdentityDbContext<Usuario, Perfil, in
             .GetConnectionString("SqlServer");
 
         optionsBuilder.UseSqlServer(connectionString);
-
-        optionsBuilder.LogTo(Console.WriteLine).EnableSensitiveDataLogging();
 
         base.OnConfiguring(optionsBuilder);
     }
