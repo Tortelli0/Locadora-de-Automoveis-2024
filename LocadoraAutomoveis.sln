@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraAutomoveis.WebApp", "LocadoraAutomoveis\LocadoraAutomoveis.WebApp.csproj", "{A7006385-48B4-4C15-89FD-376BFE88159D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.WebApp", "LocadoraAutomoveis\LocadoraAutomoveis.WebApp.csproj", "{A7006385-48B4-4C15-89FD-376BFE88159D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Apresentação", "1. Apresentação", "{682F7DA0-B0B5-4995-8D6C-55CB31848E96}"
 EndProject
@@ -15,6 +15,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infraestrutura", "4. Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Testes", "5. Testes", "{C197E91A-0528-4E38-AF5F-341D37BE9451}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.Aplicacao", "LocadoraAutomoveis.Aplicacao\LocadoraAutomoveis.Aplicacao.csproj", "{E86B892A-9E75-47DC-AA02-9429428E617F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.Dominio", "LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj", "{192673A0-7C77-4F96-8A17-56130989DCFD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.Infra.Orm", "LocadoraAutomoveis.Infra.Orm\LocadoraAutomoveis.Infra.Orm.csproj", "{48390A86-1B0C-4794-996A-EA537B0FBE29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.1 Unidade", "5.1 Unidade", "{DB8BA445-D072-4F4F-96CE-5F12E63C76F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2 Integração", "5.2 Integração", "{DD0BBA66-047C-4968-86EE-AD2CE30C2DBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraAutomoveis.Testes.Unidade", "LocadoraAutomoveis.Testes.Unidade\LocadoraAutomoveis.Testes.Unidade.csproj", "{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraAutomoveis.Testes.Integracao", "LocadoraAutomoveis.Testes.Integracao\LocadoraAutomoveis.Testes.Integracao.csproj", "{4708F251-877B-4F80-AFD7-9AAC1C078306}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,12 +39,39 @@ Global
 		{A7006385-48B4-4C15-89FD-376BFE88159D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7006385-48B4-4C15-89FD-376BFE88159D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7006385-48B4-4C15-89FD-376BFE88159D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E86B892A-9E75-47DC-AA02-9429428E617F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86B892A-9E75-47DC-AA02-9429428E617F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86B892A-9E75-47DC-AA02-9429428E617F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86B892A-9E75-47DC-AA02-9429428E617F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{192673A0-7C77-4F96-8A17-56130989DCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192673A0-7C77-4F96-8A17-56130989DCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192673A0-7C77-4F96-8A17-56130989DCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192673A0-7C77-4F96-8A17-56130989DCFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48390A86-1B0C-4794-996A-EA537B0FBE29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48390A86-1B0C-4794-996A-EA537B0FBE29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48390A86-1B0C-4794-996A-EA537B0FBE29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48390A86-1B0C-4794-996A-EA537B0FBE29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4708F251-877B-4F80-AFD7-9AAC1C078306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4708F251-877B-4F80-AFD7-9AAC1C078306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4708F251-877B-4F80-AFD7-9AAC1C078306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4708F251-877B-4F80-AFD7-9AAC1C078306}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7006385-48B4-4C15-89FD-376BFE88159D} = {682F7DA0-B0B5-4995-8D6C-55CB31848E96}
+		{E86B892A-9E75-47DC-AA02-9429428E617F} = {8B4E3B55-6086-4489-9C98-4E7F59704895}
+		{192673A0-7C77-4F96-8A17-56130989DCFD} = {D67CEF3F-9D8A-4076-A12E-3B56C9B74CFE}
+		{48390A86-1B0C-4794-996A-EA537B0FBE29} = {D8A21F26-EEFE-4952-8615-49F2EAE56F2C}
+		{DB8BA445-D072-4F4F-96CE-5F12E63C76F0} = {C197E91A-0528-4E38-AF5F-341D37BE9451}
+		{DD0BBA66-047C-4968-86EE-AD2CE30C2DBC} = {C197E91A-0528-4E38-AF5F-341D37BE9451}
+		{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F} = {DB8BA445-D072-4F4F-96CE-5F12E63C76F0}
+		{4708F251-877B-4F80-AFD7-9AAC1C078306} = {DD0BBA66-047C-4968-86EE-AD2CE30C2DBC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B199AE98-AF87-48B2-808E-F50FA9A2BF25}
