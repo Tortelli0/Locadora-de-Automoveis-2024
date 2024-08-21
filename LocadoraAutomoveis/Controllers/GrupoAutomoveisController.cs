@@ -84,7 +84,7 @@ public class GrupoAutomoveisController : WebControllerBase
 	}
 
     [HttpPost]
-    public ViewResult Editar(EditarGrupoAutomoveisViewModel editarVM)
+    public IActionResult Editar(EditarGrupoAutomoveisViewModel editarVM)
     {
 	    if (!ModelState.IsValid)
 		    return View(editarVM);
@@ -130,17 +130,17 @@ public class GrupoAutomoveisController : WebControllerBase
 
 	    if (resultado.IsFailed)
 	    {
-		    ApresentarMensagemFalha(resultado.ToResult());
+		    ApresentarMensagemFalha(resultado);
 
 		    return RedirectToAction(nameof(Listar));
 	    }
 
-	    ApresentarMensagemSucesso($"O registro ID [{detalhesVm.Id}] foi excluído com sucesso!");
+		ApresentarMensagemSucesso($"O registro ID [{detalhesVm.Id}] foi excluído com sucesso!");
 
 	    return RedirectToAction(nameof(Listar));
     }
 
-	public ViewResult Detalhes(int id)
+	public IActionResult Detalhes(int id)
 	{
 		var resultado = servico.SelecionarPorId(id);
 
