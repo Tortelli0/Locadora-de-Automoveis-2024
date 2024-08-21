@@ -3,11 +3,11 @@ using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 
 namespace LocadoraAutomoveis.Aplicacao.Serviços;
 
-public class GrupoAutomoveisService
+public class ServicoGrupoAutomoveis
 {
     private readonly IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis;
 
-    public GrupoAutomoveisService(IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis)
+    public ServicoGrupoAutomoveis(IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis)
     {
         this.repositorioGrupoAutomoveis = repositorioGrupoAutomoveis;
     }
@@ -55,11 +55,10 @@ public class GrupoAutomoveisService
         return Result.Ok(grupoAutomoveis);
     }
 
-    //public Result<List<GrupoAutomoveis>> SelecionarTodos(int usuarioId)
-    //{
-    //    var grupoAutomoveis = repositorioGrupoAutomoveis
-    //        .Filtrar(f => f.UsuarioId == usuarioId);
+    public Result<List<GrupoAutomoveis>> SelecionarTodos()
+    {
+        var gruposAutomoveis = repositorioGrupoAutomoveis.SelecionarTodos();
 
-    //    return Result.Ok(grupoAutomoveis);
-    //}
+        return Result.Ok(gruposAutomoveis);
+    }
 }
