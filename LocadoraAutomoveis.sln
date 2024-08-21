@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.1 Unidade", "5.1 Unidade"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2 Integração", "5.2 Integração", "{DD0BBA66-047C-4968-86EE-AD2CE30C2DBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraAutomoveis.Testes.Unidade", "LocadoraAutomoveis.Testes.Unidade\LocadoraAutomoveis.Testes.Unidade.csproj", "{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.Testes.Unidade", "LocadoraAutomoveis.Testes.Unidade\LocadoraAutomoveis.Testes.Unidade.csproj", "{67C1D9B1-19C7-417C-BB47-B7B64CE5E53F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocadoraAutomoveis.Testes.Integracao", "LocadoraAutomoveis.Testes.Integracao\LocadoraAutomoveis.Testes.Integracao.csproj", "{4708F251-877B-4F80-AFD7-9AAC1C078306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocadoraAutomoveis.Testes.Integracao", "LocadoraAutomoveis.Testes.Integracao\LocadoraAutomoveis.Testes.Integracao.csproj", "{4708F251-877B-4F80-AFD7-9AAC1C078306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

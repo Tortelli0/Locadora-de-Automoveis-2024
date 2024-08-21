@@ -7,6 +7,17 @@ namespace LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 
 public class WebControllerBase : Controller
 {
+    protected IActionResult MensagemRegistroNaoEncontrado(int idRegistro)
+    {
+        TempData.SerializarMensagemViewModel(new MensagemViewModel
+        {
+            Titulo = "Erro",
+            Mensagem = $"Não foi possível encontrar o registro ID [{idRegistro}]!"
+        });
+
+        return RedirectToAction("Index", "Home");
+    }
+
     protected void ApresentarMensagemFalha(Result resultado)
     {
         ViewBag.Mensagem = new MensagemViewModel
