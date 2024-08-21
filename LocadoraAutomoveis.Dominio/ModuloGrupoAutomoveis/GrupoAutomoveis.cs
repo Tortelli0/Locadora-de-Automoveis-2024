@@ -5,13 +5,21 @@ namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 public class GrupoAutomoveis : EntidadeBase
 {
     public string Nome { get; set; }
-    public int ValorPlanos { get; set; }
 
-    public GrupoAutomoveis() { }
+    protected GrupoAutomoveis() { }
 
-    public GrupoAutomoveis(string nome, int valorPlanos)
+    public GrupoAutomoveis(string nome)
     {
         Nome = nome;
-        ValorPlanos = valorPlanos;
+    }
+
+    public override List<string> Validar()
+    {
+        List<string> erros = [];
+
+        if(Nome.Length < 3)
+            erros.Add("O nome é obrigatório");
+
+        return erros;
     }
 }

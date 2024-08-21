@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Serviços\" />
+    <PackageReference Include="FluentResults" Version="3.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj" />
   </ItemGroup>
 
 </Project>
