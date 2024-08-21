@@ -1,165 +1,161 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.Serviços;
+using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
-public class GrupoAutomoveisController : Controller
+public class GrupoAutomoveisController : WebControllerBase
 {
-    private readonly IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis;
+    private readonly ServicoGrupoAutomoveis servico;
+    private readonly IMapper mapeador;
 
-    public GrupoAutomoveisController(IRepositorioGrupoAutomoveis repositorioGrupoAutomoveis)
+    public GrupoAutomoveisController(ServicoGrupoAutomoveis servico, IMapper mapeador)
     {
-        this.repositorioGrupoAutomoveis = repositorioGrupoAutomoveis;
+	    this.servico = servico;
+        this.mapeador = mapeador;
     }
 
-    public ViewResult Listar()
+    public IActionResult Listar()
     {
-        var db = new LocadoraDbContext();
-        var repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisEmOrm(db);
+	    var resultado = servico.SelecionarTodos();
 
-        var grupoautomoveis = repositorioGrupoAutomoveis.SelecionarTodos();
+	    if (resultado.IsFailed)
+	    {
+		    ApresentarMensagemFalha(resultado.ToResult());
 
-        var listarGrupoAutomoveisVm = grupoautomoveis
-            .Select(s => new ListarGrupoAutomoveisViewModel
-            {
-                Id = s.Id,
-                Nome = s.Nome
-            });
+		    return RedirectToAction("Index", "Home");
+	    }
 
-        return View(listarGrupoAutomoveisVm);
+	    var grupos = resultado.Value;
+
+	    var listarGruposVm = mapeador.Map<IEnumerable<ListarGrupoAutomoveisViewModel>>(grupos);
+
+        return View(listarGruposVm);
     }
 
-    public ViewResult Inserir()
+    public IActionResult Inserir()
     {
-        return View();
+	    return View();
     }
 
-    //[HttpPost]
-    //public ViewResult Inserir(InserirGrupoAutomoveisViewModel inserirGrupoAutomoveisVm)
-    //{
-    //    if (!ModelState.IsValid)
-    //        return View(inserirGrupoAutomoveisVm);
+    [HttpPost]
+    public IActionResult Inserir(InserirGrupoAutomoveisViewModel inserirVm)
+    {
+        if (!ModelState.IsValid)
+            return View(inserirVm);
 
-    //    var db = new LocadoraDbContext();
-    //    var repositorioGrupoAutomoveis = new RepositorioGrupoAutomoveisEmOrm(db);
+        var grupo = mapeador.Map<GrupoAutomoveis>(inserirVm);
 
-    //    var grupoAutomoveis = new GrupoAutomoveis(inserirGrupoAutomoveisVm.Nome);
+        var resultado = servico.Inserir(grupo);
 
-    //    repositorioGrupoAutomoveis.Inserir(grupoAutomoveis);
+        if (resultado.IsFailed)
+        {
+            ApresentarMensagemFalha(resultado.ToResult());
 
-    //    HttpContext.Response.StatusCode = 201;
+            return RedirectToAction(nameof(Listar));
+        }
 
-    //    var notificacaoVm = new NotificacaoViewModel
-    //    {
-    //        Mensagem = $"O registro com o ID [{sala.Id}] foi cadastrado com sucesso!",
-    //        LinkRedirecionamento = "/sala/listar"
-    //    };
+        ApresentarMensagemSucesso($"O registro ID [{grupo.Id}] foi inserido com sucesso!");
 
-    //    return View("mensagens", notificacaoVm);
-    //}
+        return RedirectToAction(nameof(Listar));
+	}
 
-    //public ViewResult Editar(int id)
-    //{
-    //    var db = new LocadoraDbContext();
-    //    var repositorioSala = new RepositorioGrupoAutomoveisEmOrm(db);
+    public IActionResult Editar(int id)
+    {
+	    var resultado = servico.SelecionarPorId(id);
 
-    //    var grupoAutomoveis = repositorioGrupoAutomoveis.SelecionarPorId(id);
+	    if (resultado.IsFailed)
+	    {
+		    ApresentarMensagemFalha(resultado.ToResult());
 
-    //    var editarSalaVm = new EditarSalaViewModel
-    //    {
-    //        Id = id,
-    //        Numero = sala.Numero,
-    //        Capacidade = sala.Capacidade
-    //    };
+		    return RedirectToAction(nameof(Listar));
+	    }
 
-    //    return View(editarSalaVm);
-    //}
+	    var grupo = resultado.Value;
 
-    //[HttpPost]
-    //public ViewResult Editar(EditarSalaViewModel editarSalaVm)
-    //{
-    //    if (!ModelState.IsValid)
-    //        return View(editarSalaVm);
+	    var editarVm = mapeador.Map<EditarGrupoAutomoveisViewModel>(grupo);
 
-    //    var db = new ControleDeCinemaDbContext();
-    //    var repositorioSala = new RepositorioSalaEmOrm(db);
+	    return View(editarVm);
+	}
 
-    //    var salaOriginal = repositorioSala.SelecionarPorId(editarSalaVm.Id);
-    //    var salaEditada = repositorioSala.SelecionarPorId(editarSalaVm.Id);
+    [HttpPost]
+    public ViewResult Editar(EditarGrupoAutomoveisViewModel editarVM)
+    {
+	    if (!ModelState.IsValid)
+		    return View(editarVM);
 
-    //    salaEditada.Numero = editarSalaVm.Numero;
-    //    salaEditada.Capacidade = editarSalaVm.Capacidade;
+	    var grupo = mapeador.Map<GrupoAutomoveis>(editarVM);
 
-    //    repositorioSala.Editar(salaOriginal, salaEditada);
+	    var resultado = servico.Editar(grupo);
 
-    //    var notificacaoVm = new NotificacaoViewModel
-    //    {
-    //        Mensagem = $"O registro com o ID [{salaEditada.Id}] foi editado com sucesso!",
-    //        LinkRedirecionamento = "/sala/listar"
-    //    };
+	    if (resultado.IsFailed)
+	    {
+		    ApresentarMensagemFalha(resultado.ToResult());
 
-    //    return View("mensagens", notificacaoVm);
-    //}
+		    return RedirectToAction(nameof(Listar));
+	    }
 
-    //public ViewResult Excluir(int id)
-    //{
-    //    var db = new ControleDeCinemaDbContext();
-    //    var repositorioSala = new RepositorioSalaEmOrm(db);
+	    ApresentarMensagemSucesso($"O registro ID [{grupo.Id}] foi editado com sucesso!");
 
-    //    var sala = repositorioSala.SelecionarPorId(id);
+	    return RedirectToAction(nameof(Listar));
+	}
 
-    //    var excluirSalaVm = new ExcluirSalaViewModel()
-    //    {
-    //        Id = sala.Id,
-    //        Numero = sala.Numero,
-    //        Capacidade = sala.Capacidade,
-    //        Sessoes = sala.Sessoes
-    //            .Select(c => new ListarSessaoSalaViewModel() { DataHorario = c.Horario.ToString() })
-    //    };
+    public IActionResult Excluir(int id)
+    {
+	    var resultado = servico.SelecionarPorId(id);
 
+	    if (resultado.IsFailed)
+	    {
+		    ApresentarMensagemFalha(resultado.ToResult());
 
-    //    return View(excluirSalaVm);
-    //}
+		    return RedirectToAction(nameof(Listar));
+	    }
 
-    //[HttpPost, ActionName("excluir")]
-    //public ViewResult ExcluirConfirmado(ExcluirSalaViewModel excluirSalaVm)
-    //{
-    //    var db = new ControleDeCinemaDbContext();
-    //    var repositorioSala = new RepositorioSalaEmOrm(db);
+	    var grupo = resultado.Value;
 
-    //    var sala = repositorioSala.SelecionarPorId(excluirSalaVm.Id);
+	    var detalhesVm = mapeador.Map<DetalhesGrupoAutomoveisViewModel>(grupo);
 
-    //    repositorioSala.Excluir(sala);
+	    return View(detalhesVm);
+    }
 
-    //    var notificacaoVm = new NotificacaoViewModel
-    //    {
-    //        Mensagem = $"O registro com o ID [{sala.Id}] foi excluído com sucesso!",
-    //        LinkRedirecionamento = "/sala/listar"
-    //    };
+    [HttpPost]
+    public IActionResult Excluir(DetalhesGrupoAutomoveisViewModel detalhesVm)
+    {
+	    var resultado = servico.Excluir(detalhesVm.Id);
 
-    //    return View("mensagens", notificacaoVm);
-    //}
+	    if (resultado.IsFailed)
+	    {
+		    ApresentarMensagemFalha(resultado.ToResult());
 
-    //public ViewResult Detalhes(int id)
-    //{
-    //    var db = new ControleDeCinemaDbContext();
-    //    var repositorioSala = new RepositorioSalaEmOrm(db);
+		    return RedirectToAction(nameof(Listar));
+	    }
 
-    //    var sala = repositorioSala.SelecionarPorId(id);
+	    ApresentarMensagemSucesso($"O registro ID [{detalhesVm.Id}] foi excluído com sucesso!");
 
-    //    var detalhesSalaVm = new DetalhesSalaViewModel()
-    //    {
-    //        Id = sala.Id,
-    //        Numero = sala.Numero,
-    //        Capacidade = sala.Capacidade,
-    //        Sessoes = sala.Sessoes
-    //            .Select(c => new ListarSessaoSalaViewModel() { DataHorario = c.Horario.ToString() })
-    //    };
+	    return RedirectToAction(nameof(Listar));
+    }
 
-    //    return View(detalhesSalaVm);
-    //}
+	public ViewResult Detalhes(int id)
+	{
+		var resultado = servico.SelecionarPorId(id);
+
+		if (resultado.IsFailed)
+		{
+			ApresentarMensagemFalha(resultado.ToResult());
+
+			return RedirectToAction(nameof(Listar));
+		}
+
+		var grupo = resultado.Value;
+
+		var detalhesVm = mapeador.Map<DetalhesGrupoAutomoveisViewModel>(grupo);
+
+		return View(detalhesVm);
+	}
 }
 
