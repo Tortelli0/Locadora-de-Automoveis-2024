@@ -25,6 +25,7 @@ public class RepositorioAutomoveisEmOrmTestes
 		repositorio = new RepositorioAutomoveisEmOrm(dbContext);
 		repositorioGrupo = new RepositorioGrupoAutomoveisEmOrm(dbContext);
 
+		BuilderSetup.SetCreatePersistenceMethod<Automovel>(repositorio.Inserir);
 		BuilderSetup.SetCreatePersistenceMethod<GrupoAutomoveis>(repositorioGrupo.Inserir);
 	}
 
@@ -37,7 +38,7 @@ public class RepositorioAutomoveisEmOrmTestes
 			.With(g => g.Id = 0)
 			.Persist();
 
-		var automovel = new Automoveis("teste", "teste", "teste", "teste", 10, grupo);
+		var automovel = new Automovel("teste", "teste", "teste", "teste", 10, grupo);
 
 		//Act
 		repositorio.Inserir(automovel);
@@ -54,20 +55,43 @@ public class RepositorioAutomoveisEmOrmTestes
 	{
 		var grupo = Builder<GrupoAutomoveis>
 			.CreateNew()
-			.With(a => a.Id = 0)
+			.With(g => g.Id = 0)
 			.Persist();
 		
-		var automovelSelecionado = new Automoveis("teste", "teste", "teste", "teste", 10, grupo);
+		var automovel = new Automovel("teste", "teste", "teste", "teste", 10, grupo);
 
-		repositorio.Editar(automovelSelecionado);
+		repositorio.Editar(automovel);
+
+		var automovelSelecionado = repositorio.SelecionarPorId(automovel.Id);
+
+		Assert.IsNotNull(automovelSelecionado);
+		Assert.AreEqual(automovel, automovelSelecionado);
+	}
+
+	[TestMethod]
+	public void Deve_Excluir_Automoveis()
+	{
+		//Arrange
+		var grupo = Builder<GrupoAutomoveis>
+			.CreateNew()
+			.With(g => g.Id = 0)
+			.Persist();
+
+		var automovel = Builder<Automovel>
+			.CreateNew()
+			.With(v => v.GrupoAutomoveis = grupo)
+			.With(g => g.Id = 0)
+			.Persist();
+
+		//Act
+		repositorio.Excluir(automovel);
 
 		var automovelSelecionado = repositorio.SelecionarPorId(automovel.Id);
 
 		var automoveis = repositorio.SelecionarTodos();
 
+		//Assert
 		Assert.IsNull(automovelSelecionado);
-		Assert.AreEqual();
-
+		Assert.AreEqual(0, automoveis.Count);
 	}
-
 }

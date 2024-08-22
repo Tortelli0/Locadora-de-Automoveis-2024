@@ -2,7 +2,7 @@
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis;
-public class Automoveis : EntidadeBase
+public class Automovel : EntidadeBase
 {
 	public GrupoAutomoveis GrupoAutomoveis { get; set; }
 	public string Modelo { get; set; }
@@ -11,9 +11,9 @@ public class Automoveis : EntidadeBase
 	public string TipoCombustivel { get; set; }
 	public int CapacidadeLitros { get; set; }
 
-    protected Automoveis() {}
+    protected Automovel() {}
 
-    public Automoveis(string modelo, string marca, string cor, string tipoCombustivel, int capacidadeLitros, GrupoAutomoveis grupoAutomoveis)
+    public Automovel(string modelo, string marca, string cor, string tipoCombustivel, int capacidadeLitros, GrupoAutomoveis grupoAutomoveis)
     {
 	    Modelo = modelo;
 	    Marca = marca;
@@ -40,7 +40,7 @@ public class Automoveis : EntidadeBase
 		if (string.IsNullOrEmpty(TipoCombustivel.Trim()))
 			erros.Add("O Tipo de combustivel é obrigatório.");
 
-		if (CapacidadeLitros >= 0)
+		if (CapacidadeLitros <= 0)
 			erros.Add("A Capacidade de Litros é obrigatória.");
 
 		return erros;

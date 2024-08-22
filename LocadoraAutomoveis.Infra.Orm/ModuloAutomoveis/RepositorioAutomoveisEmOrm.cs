@@ -3,11 +3,11 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
-public class RepositorioAutomoveisEmOrm : RepositorioBaseEmOrm<Automoveis>, IRepositorioAutomoveis
+public class RepositorioAutomoveisEmOrm : RepositorioBaseEmOrm<Automovel>, IRepositorioAutomoveis
 {
 	public RepositorioAutomoveisEmOrm(LocadoraDbContext dbContext) : base(dbContext) { }
 
-	protected override DbSet<Automoveis> ObterRegistros()
+	protected override DbSet<Automovel> ObterRegistros()
 	{
 		return dbContext.Automoveis;
 	}

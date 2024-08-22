@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 
-public class MapeadorAutomoveis : IEntityTypeConfiguration<Automoveis>
+public class MapeadorAutomoveis : IEntityTypeConfiguration<Automovel>
 {
-	public void Configure(EntityTypeBuilder<Automoveis> builder)
+	public void Configure(EntityTypeBuilder<Automovel> builder)
 	{
 		builder.ToTable("TBAutomoveis");
 
