@@ -33,7 +33,7 @@ public class MapeadorAutomoveis : IEntityTypeConfiguration<Automoveis>
 
 		builder.HasOne(a => a.GrupoAutomoveis)
 			.WithMany(g => g.Automoveis)
-			.HasForeignKey("FK_TbAutomovel_TbGrupoAutomovel")
+			.HasConstraintName("FK_TbAutomovel_TbGrupoAutomovel")
 			.OnDelete(DeleteBehavior.Restrict);
 	}
 }
