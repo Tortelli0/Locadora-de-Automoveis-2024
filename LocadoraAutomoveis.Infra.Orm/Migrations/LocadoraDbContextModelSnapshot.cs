@@ -21,7 +21,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automoveis", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,15 +41,14 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Modelo")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("TipoCombustivel")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
+                    b.Property<int>("TipoCombustivel")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -75,7 +74,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                     b.ToTable("TBGrupoAutomoveis", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automoveis", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomoveis", "GrupoAutomoveis")
                         .WithMany("Automoveis")

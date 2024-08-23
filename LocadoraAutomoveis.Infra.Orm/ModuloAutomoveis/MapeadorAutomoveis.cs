@@ -17,17 +17,21 @@ public class MapeadorAutomoveis : IEntityTypeConfiguration<Automovel>
 
 		builder.Property(a => a.Modelo)
 			.IsRequired()
-			.HasColumnType("varchar(50)");
+			.HasColumnType("varchar(100)");
 
 		builder.Property(a => a.Marca)
 			.IsRequired()
-			.HasColumnType("varchar(50)");
+			.HasColumnType("varchar(100)");
 
 		builder.Property(a => a.TipoCombustivel)
 			.IsRequired()
-			.HasColumnType("varchar(50)");
+			.HasColumnType("int");
 
 		builder.Property(a => a.CapacidadeLitros)
+			.IsRequired()
+			.HasColumnType("int");
+
+		builder.Property(a => a.GrupoAutomoveisId)
 			.IsRequired()
 			.HasColumnType("int");
 

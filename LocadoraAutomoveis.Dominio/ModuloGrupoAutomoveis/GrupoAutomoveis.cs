@@ -6,7 +6,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 public class GrupoAutomoveis : EntidadeBase
 {
     public string Nome { get; set; }
-    public List<Automovel> Automoveis { get; set; }
+    public List<Automovel> Automoveis { get; set; } = [];
 
     protected GrupoAutomoveis() { }
 

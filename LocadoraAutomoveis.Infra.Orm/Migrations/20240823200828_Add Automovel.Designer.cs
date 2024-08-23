@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infra.Orm.Migrations
 {
     [DbContext(typeof(LocadoraDbContext))]
-    [Migration("20240822174144_add_automoveis")]
-    partial class add_automoveis
+    [Migration("20240823200828_Add Automovel")]
+    partial class AddAutomovel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automoveis", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,24 +39,23 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FK_TbAutomovel_TbGrupoAutomovel")
+                    b.Property<int>("GrupoAutomoveisId")
                         .HasColumnType("int");
 
                     b.Property<string>("Marca")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Modelo")
                         .IsRequired()
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("TipoCombustivel")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
+                    b.Property<int>("TipoCombustivel")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FK_TbAutomovel_TbGrupoAutomovel");
+                    b.HasIndex("GrupoAutomoveisId");
 
                     b.ToTable("TBAutomoveis", (string)null);
                 });
@@ -78,13 +77,14 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                     b.ToTable("TBGrupoAutomoveis", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automoveis", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomoveis", "GrupoAutomoveis")
                         .WithMany("Automoveis")
-                        .HasForeignKey("FK_TbAutomovel_TbGrupoAutomovel")
+                        .HasForeignKey("GrupoAutomoveisId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_TbAutomovel_TbGrupoAutomovel");
 
                     b.Navigation("GrupoAutomoveis");
                 });
