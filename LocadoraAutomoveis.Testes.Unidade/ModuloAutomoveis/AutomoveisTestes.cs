@@ -11,9 +11,7 @@ public class AutomoveisTestes
 	[TestMethod]
 	public void Deve_Criar_instancia_Valida()
 	{
-		var grupo = new GrupoAutomoveis("teste");
-
-		var automovel = new Automovel("teste", "teste", "teste", "teste", 10, grupo);
+		var automovel = new Automovel("modelo A", "Marca B", "cor C", TipoCombustivel.Diesel, 10, 1);
 
 		var erros = automovel.Validar();
 
@@ -23,9 +21,7 @@ public class AutomoveisTestes
 	[TestMethod]
 	public void Deve_Criar_Instancia_Com_Erro()
 	{
-		var grupo = new GrupoAutomoveis("teste");
-
-		var automovel = new Automovel("", "", "teste", "teste", 10, grupo);
+		var automovel = new Automovel("", "", "cor A", TipoCombustivel.Alcool, 5, 2);
 
 		var erros = automovel.Validar();
 
