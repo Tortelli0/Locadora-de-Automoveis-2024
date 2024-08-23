@@ -29,9 +29,9 @@ public class ServicoAutomovel
 		automovel.Modelo = automovelAtualizado.Modelo;
 		automovel.Marca = automovelAtualizado.Marca;
 		automovel.Cor = automovelAtualizado.Cor;
-		automovel.CapacidadeLitros = automovelAtualizado.CapacidadeLitros;
 		automovel.TipoCombustivel = automovelAtualizado.TipoCombustivel;
-		automovel.GrupoAutomoveis = automovelAtualizado.GrupoAutomoveis;
+		automovel.CapacidadeLitros = automovelAtualizado.CapacidadeLitros;
+		automovel.GrupoAutomoveisId = automovelAtualizado.GrupoAutomoveisId;
 
 		repositorioAutomovel.Editar(automovel);
 
@@ -43,7 +43,7 @@ public class ServicoAutomovel
 		var automovel = repositorioAutomovel.SelecionarPorId(automovelId);
 
 		if (automovel is null)
-			return Result.Fail("O Automoveil não foi encontrado!");
+			return Result.Fail("O automovel não foi encontrado!");
 
 		repositorioAutomovel.Excluir(automovel);
 
