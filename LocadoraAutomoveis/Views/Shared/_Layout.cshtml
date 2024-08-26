@@ -12,6 +12,7 @@
     
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LocadoraAutomoveis.WebApp.styles.css" asp-append-version="true" />
 </head>
@@ -32,7 +33,10 @@
 		                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Início</a>
 	                    </li>
 	                    <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="GrupoAutomoveis" asp-action="Listar">Grupo de Automoveis</a>
+		                    <a class="nav-link text-dark" asp-controller="GrupoAutomoveis" asp-action="Listar">Grupo de Automoveis</a>
+	                    </li>
+	                    <li class="nav-item">
+		                    <a class="nav-link text-dark" asp-controller="Automovel" asp-action="Listar">Automoveis</a>
 	                    </li>
                     </ul>
                 </div>
