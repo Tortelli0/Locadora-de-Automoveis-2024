@@ -1,4 +1,19 @@
-﻿@page
-@model LocadoraAutomoveis.WebApp.Views.Automoveis._InformacoesModel
-@{
-}
+﻿@model LocadoraAutomoveis.WebApp.Models.DetalhesAutomovelViewModel
+
+<div class="row gap-3 my-3 my-xl-5">
+
+	<label class="fs-4"><strong>Modelo:</strong> @Model.Modelo</label>
+
+	<label class="fs-4"><strong>Marca:</strong> @Model.Marca</label>
+
+	<label class="fs-4"><strong>Cor:</strong> @Model.Cor</label>
+
+	<label class="fs-4"><strong>Tipo de Combustível:</strong> @Model.TipoCombustivel</label>
+
+	<label class="fs-4"><strong>Capacidade do Tanque:</strong> @Model.CapacidadeLitros L</label>
+
+	<label class="fs-4"><strong>Grupo de Automoveis:</strong> @Model.GrupoAutomoveis</label>
+
+	<label class="fs-5"><strong>Id:</strong> [@Model.Id]</label>
+
+</div>

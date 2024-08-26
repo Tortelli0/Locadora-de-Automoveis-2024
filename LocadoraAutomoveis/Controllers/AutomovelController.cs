@@ -2,6 +2,7 @@
 using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.Serviços;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
+using LocadoraAutomoveis.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
@@ -32,9 +33,9 @@ public class AutomovelController : WebControllerBase
 
 		var automoveis = resultado.Value;
 
-		var listarVeiculosVm = mapeador.Map<IEnumerable<ListarAutomoveisViewModel>>()
+		var listarVeiculosVm = mapeador.Map<IEnumerable<ListarAutomovelViewModel>>(automoveis);
 
-		return View();
+		return View(listarVeiculosVm);
 	}
 
 
