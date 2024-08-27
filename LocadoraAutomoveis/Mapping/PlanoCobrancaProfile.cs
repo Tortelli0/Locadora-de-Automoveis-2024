@@ -12,11 +12,15 @@ public class PlanoCobrancaProfile : Profile
 		CreateMap<EditarPlanoCobrancaViewModel, PlanoCobranca>();
 
 		CreateMap<PlanoCobranca, ListarPlanoCobrancaViewModel>()
-			.ForMember(dest => dest.GrupoAutomoveis,
-						opt => opt.MapFrom(src.GrupoAutomeis!.Nome));
+			.ForMember(
+			dest => dest.GrupoAutomoveis,
+			opt => opt.MapFrom(src => src.GrupoAutomoveis!.Nome));
 
 		CreateMap<PlanoCobranca, DetalhesPlanoCobrancaViewModel>()
-			.ForMember(dest => dest.GrupoAutomoveis,
-				opt => opt.MapFrom);
+			.ForMember(
+			dest => dest.GrupoAutomoveis,
+			opt => opt.MapFrom(src => src.GrupoAutomoveis!.Nome));
+
+		CreateMap<PlanoCobranca, EditarPlanoCobrancaViewModel>();
     }
 }
