@@ -22,4 +22,8 @@
     <ProjectReference Include="..\LocadoraAutomoveis.Infra.Orm\LocadoraAutomoveis.Infra.Orm.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\PlanoCobranca\" />
+  </ItemGroup>
+
 </Project>
