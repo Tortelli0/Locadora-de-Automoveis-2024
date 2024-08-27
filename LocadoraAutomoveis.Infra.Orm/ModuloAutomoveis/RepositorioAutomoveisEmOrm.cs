@@ -3,6 +3,7 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
+
 public class RepositorioAutomoveisEmOrm : RepositorioBaseEmOrm<Automovel>, IRepositorioAutomoveis
 {
 	public RepositorioAutomoveisEmOrm(LocadoraDbContext dbContext) : base(dbContext) { }
@@ -12,10 +13,17 @@ public class RepositorioAutomoveisEmOrm : RepositorioBaseEmOrm<Automovel>, IRepo
 		return dbContext.Automoveis;
 	}
 
-	//public List<Automoveis> Filtrar(Func<Automoveis, bool> predicate)
-	//{
-	//    return dbContext.Automoveis
-	//        .Where(predicate)
-	//        .ToList();
-	//}
+	public override Automovel? SelecionarPorId(int id)
+	{
+		return ObterRegistros()
+			.Include(v => v.GrupoAutomoveis)
+			.FirstOrDefault(v => v.Id == id);
+	}
+
+	public override List<Automovel> SelecionarTodos()
+	{
+		return ObterRegistros()
+			.Include(v => v.GrupoAutomoveis)
+			.ToList();
+	}
 }
