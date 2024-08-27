@@ -33,8 +33,8 @@ public class PlanoCobrancaController : WebControllerBase
 
 		var planosCobranca = resultado.Value;
 
-		var listarPlanosVm = mapeador.Map<IEnumerable<ListarP>>();
+		var listarPlanosVm = mapeador.Map<IEnumerable<ListarPlanoCobrancaViewModel>>(planosCobranca);
 
-		return View();
+		return View(listarPlanosVm);
 	}
 }
