@@ -1,11 +1,14 @@
 using System.Reflection;
 using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
+using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.Serviços;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Infra.Orm.ModuloPlanoCobranca;
 
 namespace LocadoraAutomoveis.WebApp;
 
@@ -19,9 +22,11 @@ public class Program
 
         builder.Services.AddScoped<IRepositorioGrupoAutomoveis, RepositorioGrupoAutomoveisEmOrm>();
         builder.Services.AddScoped<IRepositorioAutomoveis, RepositorioAutomoveisEmOrm>();
+        builder.Services.AddScoped<IRepositorioPlanoCobranca, RepositorioPlanoCobrancaEmOrm>();
 
         builder.Services.AddScoped<ServicoGrupoAutomoveis>();
         builder.Services.AddScoped<ServicoAutomovel>();
+        builder.Services.AddScoped<ServicoPlanoCobranca>();
 
         builder.Services.AddAutoMapper(cfg =>
         {
@@ -51,4 +56,3 @@ public class Program
         app.Run();
     }
 }
-

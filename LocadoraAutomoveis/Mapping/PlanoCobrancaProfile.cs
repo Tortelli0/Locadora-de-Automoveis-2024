@@ -1,5 +1,22 @@
-﻿namespace LocadoraAutomoveis.WebApp.Mapping;
+﻿using AutoMapper;
+using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
+using LocadoraAutomoveis.WebApp.Models;
 
-public class PlanoCobrancaProfile
+namespace LocadoraAutomoveis.WebApp.Mapping;
+
+public class PlanoCobrancaProfile : Profile
 {
+    public PlanoCobrancaProfile()
+    {
+		CreateMap<InserirPlanoCobrancaViewModel, PlanoCobranca>();
+		CreateMap<EditarPlanoCobrancaViewModel, PlanoCobranca>();
+
+		CreateMap<PlanoCobranca, ListarPlanoCobrancaViewModel>()
+			.ForMember(dest => dest.GrupoAutomoveis,
+						opt => opt.MapFrom(src.GrupoAutomeis!.Nome));
+
+		CreateMap<PlanoCobranca, DetalhesPlanoCobrancaViewModel>()
+			.ForMember(dest => dest.GrupoAutomoveis,
+				opt => opt.MapFrom);
+    }
 }

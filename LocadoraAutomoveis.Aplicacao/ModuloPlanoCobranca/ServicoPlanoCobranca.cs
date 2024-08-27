@@ -2,6 +2,7 @@
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
 
 namespace LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
+
 public class ServicoPlanoCobranca
 {
 	private readonly IRepositorioPlanoCobranca repositoiroPlanoCobranca;
@@ -48,5 +49,22 @@ public class ServicoPlanoCobranca
 		repositoiroPlanoCobranca.Excluir(planoCobranca);
 
 		return Result.Ok(planoCobranca);
+	}
+
+	public Result<PlanoCobranca> SelecionarPorId(int planoCobrancaId)
+	{
+		var planoCobranca = repositoiroPlanoCobranca.SelecionarPorId(planoCobrancaId);
+
+		if (planoCobranca is null)
+			return Result.Fail("O plano de cobrança não foi encontrado!");
+
+		return Result.Ok(planoCobranca);
+	}
+
+	public Result<List<PlanoCobranca>> SelecionarTodos()
+	{
+		var planosCobranca = repositoiroPlanoCobranca.SelecionarTodos();
+
+		return Result.Ok(planosCobranca);
 	}
 }
