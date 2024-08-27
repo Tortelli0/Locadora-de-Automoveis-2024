@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LocadoraAutomoveis.WebApp.Models;
 
-	public abstract class FormularioPlanoCobrancaViewModel
+	public class FormularioPlanoCobrancaViewModel
 	{
 		[Required(ErrorMessage = "O grupo de automoveis é obrigatório")]
 		public int GrupoAutomoveisId { get; set; }
