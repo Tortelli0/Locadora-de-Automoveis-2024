@@ -10,11 +10,11 @@ public class Taxa : EntidadeBase
 
     protected Taxa() { }
 
-    public Taxa(TipoCobranca tipoCobranca, decimal valor, string nome)
+    public Taxa(string nome, decimal valor, TipoCobranca tipoCobranca)
     {
-	    TipoCobranca = tipoCobranca;
-	    Valor = valor;
 	    Nome = nome;
+	    Valor = valor;
+	    TipoCobranca = tipoCobranca;
     }
 
     public override List<string> Validar()
