@@ -10,7 +10,7 @@ public class Taxa : EntidadeBase
 
     protected Taxa() { }
 
-    public Taxa(string nome, decimal valor, TipoCobranca tipoCobranca)
+    public Taxa(string nome, decimal valor, TipoCobranca tipoCobranca) : this()
     {
 	    Nome = nome;
 	    Valor = valor;
