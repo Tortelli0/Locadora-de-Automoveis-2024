@@ -55,7 +55,6 @@ public class AutomovelController : WebControllerBase
 
 		var resultado = servico.Inserir(veiculo);
 
-
 		if (resultado.IsFailed)
 		{
 			ApresentarMensagemFalha(resultado.ToResult());
@@ -173,6 +172,22 @@ public class AutomovelController : WebControllerBase
 		var detalhesVm = mapeador.Map<DetalhesAutomovelViewModel>(veiculo);
 
 		return View(detalhesVm);
+	}
+
+	public IActionResult ObterFoto(int id)
+	{
+		var resultado = servico.SelecionarPorId(id);
+
+		if (resultado.IsFailed)
+		{
+			ApresentarMensagemFalha(resultado.ToResult());
+
+			return NotFound();
+		}
+
+		var veiculo = resultado.Value;
+
+		return File(veiculo.Foto, "image/jpeg");
 	}
 
 	private FormularioAutomovelViewModel? CarregarDadosFormulario(FormularioAutomovelViewModel? dadosPrevios = null)

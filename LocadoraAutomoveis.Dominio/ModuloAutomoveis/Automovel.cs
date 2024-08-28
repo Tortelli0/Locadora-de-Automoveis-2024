@@ -10,6 +10,8 @@ public class Automovel : EntidadeBase
 	public string Cor { get; set; }
 	public TipoCombustivel TipoCombustivel { get; set; }
 	public int CapacidadeLitros { get; set; }
+	public byte[] Foto { get; set; }
+
 	public int GrupoAutomoveisId { get; set; }
 	public GrupoAutomoveis? GrupoAutomoveis { get; set; }
 
