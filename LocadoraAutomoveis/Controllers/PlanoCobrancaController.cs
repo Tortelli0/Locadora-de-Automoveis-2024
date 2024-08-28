@@ -82,11 +82,6 @@ public class PlanoCobrancaController : WebControllerBase
 
 		var editarVm = mapeador.Map<EditarPlanoCobrancaViewModel>(planoCobranca);
 
-		var grupos = servicoGrupos.SelecionarTodos().Value;
-
-		editarVm.GruposAutomoveis = grupos
-			.Select(g => new SelectListItem(g.Nome, g.Id.ToString()));
-
 		return View(editarVm);
 	}
 

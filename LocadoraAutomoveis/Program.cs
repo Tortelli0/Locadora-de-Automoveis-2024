@@ -9,7 +9,7 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanoCobranca;
-using LocadoraAutomoveis.WebApp.Mapping;
+using LocadoraAutomoveis.WebApp.Mapping.Resolvers;
 
 namespace LocadoraAutomoveis.WebApp;
 
@@ -30,6 +30,7 @@ public class Program
         builder.Services.AddScoped<ServicoPlanoCobranca>();
 
         builder.Services.AddScoped<FotoValueResolver>();
+        builder.Services.AddScoped<GrupoAutomoveisResolver>();
 
         builder.Services.AddAutoMapper(cfg =>
         {
