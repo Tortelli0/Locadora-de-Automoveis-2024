@@ -116,6 +116,29 @@ namespace LocadoraAutomoveis.Infra.Orm.Migrations
                     b.ToTable("TBPlanoCobranca", (string)null);
                 });
 
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloTaxa.Taxa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("TipoCobranca")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TBTaxa", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis.GrupoAutomoveis", "GrupoAutomoveis")

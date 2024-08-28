@@ -1,6 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
+using LocadoraAutomoveis.Dominio.ModuloTaxa;
 using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ public class LocadoraDbContext : DbContext
     public DbSet<GrupoAutomoveis> GrupoAutomoveis { get; set; }
 	public DbSet<Automovel> Automoveis { get; set; }
     public DbSet<PlanoCobranca> PlanosCobranca { get; set; }
+    public DbSet<Taxa> Taxas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
