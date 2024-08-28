@@ -88,9 +88,9 @@ public class AutomovelController : WebControllerBase
 			return null;
 		}
 
-		var veiculo = resultado.Value;
+		var automovel = resultado.Value;
 
-		var editarVm = mapeador.Map<EditarAutomovelViewModel>(veiculo);
+		var editarVm = mapeador.Map<EditarAutomovelViewModel>(automovel);
 
 		var gruposDisponiveis = resultadoGrupos.Value;
 
