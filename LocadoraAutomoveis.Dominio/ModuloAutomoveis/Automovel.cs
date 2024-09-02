@@ -8,7 +8,7 @@ public class Automovel : EntidadeBase
 	public string Modelo { get; set; }
 	public string Marca { get; set; }
 	public string Cor { get; set; }
-	public TipoCombustivel TipoCombustivel { get; set; }
+	public TipoCombustivelEnum TipoCombustivelEnum { get; set; }
 	public int CapacidadeLitros { get; set; }
 	public byte[] Foto { get; set; }
 
@@ -17,12 +17,12 @@ public class Automovel : EntidadeBase
 
     protected Automovel() {}
 
-    public Automovel(string modelo, string marca, string cor, TipoCombustivel tipoCombustivel, int capacidadeLitros, int grupoAutomoveisId)
+    public Automovel(string modelo, string marca, string cor, TipoCombustivelEnum tipoCombustivelEnum, int capacidadeLitros, int grupoAutomoveisId)
     {
 	    Modelo = modelo;
 	    Marca = marca;
 	    Cor = cor;
-	    TipoCombustivel = tipoCombustivel;
+	    TipoCombustivelEnum = tipoCombustivelEnum;
 	    CapacidadeLitros = capacidadeLitros;
 	    GrupoAutomoveisId = grupoAutomoveisId;
     }

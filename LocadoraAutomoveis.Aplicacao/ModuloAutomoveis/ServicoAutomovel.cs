@@ -29,7 +29,7 @@ public class ServicoAutomovel
 		automovel.Modelo = automovelAtualizado.Modelo;
 		automovel.Marca = automovelAtualizado.Marca;
 		automovel.Cor = automovelAtualizado.Cor;
-		automovel.TipoCombustivel = automovelAtualizado.TipoCombustivel;
+		automovel.TipoCombustivelEnum = automovelAtualizado.TipoCombustivelEnum;
 		automovel.CapacidadeLitros = automovelAtualizado.CapacidadeLitros;
 		automovel.GrupoAutomoveisId = automovelAtualizado.GrupoAutomoveisId;
 

@@ -38,7 +38,7 @@ public class RepositorioAutomoveisEmOrmTestes
 			.With(g => g.Id = 0)
 			.Persist();
 
-		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivel.Diesel, 10, grupo.Id);
+		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivelEnum.Diesel, 10, grupo.Id);
 
 		//Act
 		repositorio.Inserir(automovel);
@@ -58,7 +58,7 @@ public class RepositorioAutomoveisEmOrmTestes
 			.With(g => g.Id = 0)
 			.Persist();
 		
-		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivel.Alcool, 10, grupo.Id);
+		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivelEnum.Alcool, 10, grupo.Id);
 
 		repositorio.Editar(automovel);
 
