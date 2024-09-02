@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloCondutor;
 
-public class RepositorioCondutorEmOrm : RepositorioBaseEmOrm<Condutor>
+public class RepositorioCondutorEmOrm : RepositorioBaseEmOrm<Condutor>, IRepositorioCondutor
 {
     public RepositorioCondutorEmOrm(LocadoraDbContext dbContext) : base(dbContext)
     {
