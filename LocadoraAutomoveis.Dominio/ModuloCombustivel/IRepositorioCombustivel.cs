@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.Dominio.ModuloCombustivel;
 
-public interface IRepositorioCombusitvel
+public interface IRepositorioCombustivel
 {
     void GravarConfiguracao(ConfiguracaoCombustivel configuracaoCombustivel);
     ConfiguracaoCombustivel? ObterConfiguracao();
