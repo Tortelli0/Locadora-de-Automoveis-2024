@@ -14,6 +14,8 @@ public class ServicoCombustivel
 
     public Result SalvarConfiguracao(ConfiguracaoCombustivel configuracao)
     {
+        configuracao.DataCriacao = DateTime.Now;
+
         repositorioConfig.GravarConfiguracao(configuracao);
 
         return Result.Ok();;

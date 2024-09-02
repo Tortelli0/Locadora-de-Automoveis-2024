@@ -3,11 +3,11 @@ using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloCombustivel;
 
-public class RepositorioConfiguracaoConfiguracaoCombustivelEmOrm : IRepositorioConfiguracaoCombustivel
+public class RepositorioConfiguracaoCombustivelEmOrm : IRepositorioConfiguracaoCombustivel
 {
     private readonly LocadoraDbContext dbContext;
 
-    public RepositorioConfiguracaoConfiguracaoCombustivelEmOrm(LocadoraDbContext dbContext)
+    public RepositorioConfiguracaoCombustivelEmOrm(LocadoraDbContext dbContext)
     {
         this.dbContext = dbContext;
     }

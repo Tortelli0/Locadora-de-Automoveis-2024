@@ -1,12 +1,14 @@
 using System.Reflection;
 using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloCliente;
+using LocadoraAutomoveis.Aplicacao.ModuloCombustivel;
 using LocadoraAutomoveis.Aplicacao.ModuloCondutor;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxa;
 using LocadoraAutomoveis.Aplicacao.Serviços;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using LocadoraAutomoveis.Dominio.ModuloCondutor;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
@@ -14,6 +16,7 @@ using LocadoraAutomoveis.Dominio.ModuloTaxa;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloCliente;
+using LocadoraAutomoveis.Infra.Orm.ModuloCombustivel;
 using LocadoraAutomoveis.Infra.Orm.ModuloCondutor;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanoCobranca;
@@ -37,12 +40,16 @@ public class Program
         builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
         builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutorEmOrm>();
 
+        builder.Services.AddScoped<IRepositorioConfiguracaoCombustivel, RepositorioConfiguracaoCombustivelEmOrm>();
+
         builder.Services.AddScoped<ServicoGrupoAutomoveis>();
         builder.Services.AddScoped<ServicoAutomovel>();
         builder.Services.AddScoped<ServicoPlanoCobranca>();
         builder.Services.AddScoped<ServicoTaxa>();
         builder.Services.AddScoped<ServicoCliente>();
         builder.Services.AddScoped<ServicoCondutor>();
+
+        builder.Services.AddScoped<ServicoCombustivel>();
 
         builder.Services.AddScoped<FotoValueResolver>();
         builder.Services.AddScoped<GrupoAutomoveisResolver>();
