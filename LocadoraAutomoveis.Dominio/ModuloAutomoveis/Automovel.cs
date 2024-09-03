@@ -15,6 +15,8 @@ public class Automovel : EntidadeBase
 	public int GrupoAutomoveisId { get; set; }
 	public GrupoAutomoveis? GrupoAutomoveis { get; set; }
 
+	public bool Alugado { get; set; }
+
     protected Automovel() {}
 
     public Automovel(string modelo, string marca, string cor, TipoCombustivelEnum tipoCombustivelEnum, int capacidadeLitros, int grupoAutomoveisId)
@@ -45,4 +47,14 @@ public class Automovel : EntidadeBase
 
 		return erros;
 	}
+
+    public void Alugar()
+    {
+        Alugado = true;
+    }
+
+    public void Desocupar()
+    {
+        Alugado = false;
+    }
 }
