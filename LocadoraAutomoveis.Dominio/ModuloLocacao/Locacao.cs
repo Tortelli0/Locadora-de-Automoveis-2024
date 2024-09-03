@@ -55,12 +55,12 @@ public class Locacao : EntidadeBase
             erros.Add("O Automovel é obrigatório");
 
         if (DataLocacao == DateTime.MinValue)
-            erros.Add("Seleciona a data da locação");
+            erros.Add("Selecione a data da locação");
 
-        if (DataDevolucao == DateTime.MinValue)
+        if (DevolucaoPrevista == DateTime.MinValue)
             erros.Add("Selecione a data prevista da entrega");
 
-        if (DataDevolucao < DataLocacao)
+        if (DevolucaoPrevista < DataLocacao)
             erros.Add("A data prevista da entrega não pode ser menor que data da locação");
 
         return erros;

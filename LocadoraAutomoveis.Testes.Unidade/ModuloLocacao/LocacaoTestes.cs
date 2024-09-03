@@ -30,8 +30,8 @@ public class LocacaoTestes
     {
         // Arrange
         var locacao = new Locacao(
-            automovelId: 0,
             condutorId: 0,
+            automovelId: 0,
             configuracaoCombustivelId: 1,
             planoCobranca: TipoPlanoCobrancaEnum.Diario,
             dataLocacao: DateTime.MinValue,
@@ -45,7 +45,7 @@ public class LocacaoTestes
         List<string> errosEsperados =
         [
             "O condutor é obrigatório",
-            "O veículo é obrigatório",
+            "O Automovel é obrigatório",
             "Selecione a data da locação",
             "Selecione a data prevista da entrega"
         ];
