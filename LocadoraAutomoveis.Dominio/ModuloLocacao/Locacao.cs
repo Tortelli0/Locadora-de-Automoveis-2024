@@ -14,7 +14,6 @@ public class Locacao : EntidadeBase
     public Automovel? Automovel { get; set; }
 
     public int ConfiguracaoCombustivelId { get; set; }
-    public TipoPlanoCobrancaEnum PlanoCobrancaEnum { get; }
     public ConfiguracaoCombustivel? ConfiguracaoCombustivel { get; set; }
 
     public TipoPlanoCobrancaEnum TipoPlano { get; set; }
@@ -35,12 +34,12 @@ public class Locacao : EntidadeBase
         MarcadorCombustivel = MarcadorCombustivelEnum.Completo;
     }
 
-    public Locacao(int automovelId, int condutorId, int configuracaoCombustivelId, TipoPlanoCobrancaEnum planoCobrancaEnum, DateTime dataLocacao, DateTime devolucaoPrevista) : this()
+    public Locacao(int automovelId, int condutorId, int configuracaoCombustivelId, TipoPlanoCobrancaEnum planoCobranca, DateTime dataLocacao, DateTime devolucaoPrevista) : this()
     {
         AutomovelId = automovelId;
         CondutorId = condutorId;
         ConfiguracaoCombustivelId = configuracaoCombustivelId;
-        TipoPlano = planoCobrancaEnum;
+        TipoPlano = planoCobranca;
         DataLocacao = dataLocacao;
         DevolucaoPrevista = devolucaoPrevista;
     }
@@ -81,5 +80,13 @@ public class Locacao : EntidadeBase
         if (Automovel is null) return;
 
         Automovel.Desocupar();
+    }
+
+    public bool TemMulta()
+    {
+        if (DataDevolucao is null)
+            return (DateTime.Now - DevolucaoPrevista).Days > 0;
+
+        return (DataDevolucao - DevolucaoPrevista).Value.Days > 0;
     }
 }
