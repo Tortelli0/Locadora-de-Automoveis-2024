@@ -2,6 +2,7 @@
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using LocadoraAutomoveis.Dominio.ModuloCondutor;
+using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Dominio.ModuloTaxa;
 
 namespace LocadoraAutomoveis.Dominio.ModuloLocacao;
@@ -88,5 +89,51 @@ public class Locacao : EntidadeBase
             return (DateTime.Now - DevolucaoPrevista).Days > 0;
 
         return (DataDevolucao - DevolucaoPrevista).Value.Days > 0;
+    }
+
+    public decimal CalcularValorParcial(PlanoCobranca planoSelecionado)
+    {
+        var quantidadeDiasPercorridos = ObterQuantidadeDeDiasPercorridos();
+
+        decimal valorPlano = planoSelecionado.CalcularValor(quantidadeDiasPercorridos, QuilometragemPercorrida, TipoPlano);
+
+        decimal valorTaxas = 0;
+
+        if (TaxasSelecionadas.Count > 0)
+            valorTaxas = TaxasSelecionadas.Sum(tx => tx.CalcularValor(quantidadeDiasPercorridos));
+
+        return valorPlano + valorTaxas;
+    }
+    public decimal CalcularValorTotal(PlanoCobranca planoCobranca)
+    {
+        var valorParcial = CalcularValorParcial(planoCobranca);
+
+        decimal totalAbastecimento = 0;
+
+        if (Automovel is not null && ConfiguracaoCombustivel is not null)
+        {
+            var valorCombustivel = ConfiguracaoCombustivel.ObterValorCombustivel(Automovel.TipoCombustivelEnum);
+
+            totalAbastecimento = Automovel.CalcularLitrosParaAbastecimento(MarcadorCombustivel) * valorCombustivel;
+        }
+
+        decimal valorTotal = valorParcial + totalAbastecimento;
+
+        if (TemMulta()) // Multa de 10%
+            valorTotal += valorTotal * (10m / 100m);
+
+        return valorTotal;
+    }
+
+    private int ObterQuantidadeDeDiasPercorridos()
+    {
+        int qtdDiasLocacao;
+
+        if (DataDevolucao is null)
+            qtdDiasLocacao = (DevolucaoPrevista.Date - DataLocacao.Date).Days;
+        else
+            qtdDiasLocacao = (DataDevolucao - DataLocacao).Value.Days;
+
+        return qtdDiasLocacao;
     }
 }

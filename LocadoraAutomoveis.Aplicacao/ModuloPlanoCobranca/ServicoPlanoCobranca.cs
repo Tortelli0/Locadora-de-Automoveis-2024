@@ -67,4 +67,14 @@ public class ServicoPlanoCobranca
 
 		return Result.Ok(planosCobranca);
 	}
+
+    public Result<PlanoCobranca> SelecionarPorIdGrupoAutomoveis(int grupoAutomoveisId)
+    {
+        var plano = repositoiroPlanoCobranca.FiltarPlano(p => p.GrupoAutomoveisId == grupoAutomoveisId);
+
+        if (plano is null)
+            return Result.Fail("O plano de cobrança não foi encontrado!");
+
+		return Result.Ok(plano);
+    }
 }
