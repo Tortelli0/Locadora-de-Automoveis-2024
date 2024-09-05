@@ -1,4 +1,5 @@
 using System.Reflection;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloCliente;
 using LocadoraAutomoveis.Aplicacao.ModuloCombustivel;
@@ -65,6 +66,8 @@ public class Program
         builder.Services.AddScoped<AutomoveisValueResolver>();
         builder.Services.AddScoped<ValorParcialValueResolver>();
         builder.Services.AddScoped<ValorTotalValueResolver>();
+
+        builder.Services.AddScoped<ServicoAutenticacao>();
 
         builder.Services.AddAutoMapper(cfg =>
         {
