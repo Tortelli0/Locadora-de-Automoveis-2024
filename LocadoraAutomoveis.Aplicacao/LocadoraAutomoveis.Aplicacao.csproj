@@ -14,4 +14,8 @@
     <ProjectReference Include="..\LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModuloAutenticacao\" />
+  </ItemGroup>
+
 </Project>
