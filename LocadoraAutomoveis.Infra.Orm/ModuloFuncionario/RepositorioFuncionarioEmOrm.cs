@@ -2,7 +2,7 @@
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
-namespace LocadoraDeVeiculos.Infra.Orm.ModuloFuncionario;
+namespace LocadoraAutomoveis.Infra.Orm.ModuloFuncionario;
 
 public class RepositorioFuncionarioEmOrm : RepositorioBaseEmOrm<Funcionario>, IRepositorioFuncionario
 {

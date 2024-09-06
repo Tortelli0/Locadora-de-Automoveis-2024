@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LocadoraDeVeiculos.Infra.Orm.ModuloFuncionario;
+namespace LocadoraAutomoveis.Infra.Orm.ModuloFuncionario;
 
 public class MapeadorFuncionario : IEntityTypeConfiguration<Funcionario>
 {
