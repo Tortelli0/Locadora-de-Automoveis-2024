@@ -2,37 +2,26 @@
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Testes.Integracao.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Integracao.ModuloGrupoAutomoveis;
 
 [TestClass]
 [TestCategory("Integração")]
-public class RepositorioGrupoAutomoveisEmOrmTestes
+public class RepositorioGrupoAutomoveisEmOrmTestes : RepositorioEmOrmTestesBase
 {
-    private LocadoraDbContext dbContext;
-    private RepositorioGrupoAutomoveisEmOrm repositorio;
-
-    [TestInitialize]
-    public void Inicializar()
-    {
-        dbContext = new LocadoraDbContext();
-
-        dbContext.GrupoAutomoveis.RemoveRange(dbContext.GrupoAutomoveis);
-
-        repositorio = new RepositorioGrupoAutomoveisEmOrm(dbContext);
-
-        BuilderSetup.SetCreatePersistenceMethod<GrupoAutomoveis>(repositorio.Inserir);
-    }
-
     [TestMethod]
     public void Deve_Inserir_GrupoAutomoveis()
     {
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
-            .Persist();
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Build();
 
-        var grupoSelecionado = repositorio.SelecionarPorId(grupo.Id);
+        repositorioGrupo.Inserir(grupo);
+
+        var grupoSelecionado = repositorioGrupo.SelecionarPorId(grupo.Id);
 
         Assert.IsNotNull(grupoSelecionado);
         Assert.AreEqual(grupo, grupoSelecionado);
@@ -44,12 +33,13 @@ public class RepositorioGrupoAutomoveisEmOrmTestes
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         grupo.Nome = "Teste de Edição";
-        repositorio.Editar(grupo);
+        repositorioGrupo.Editar(grupo);
 
-        var grupoSelecionado = repositorio.SelecionarPorId(grupo.Id);
+        var grupoSelecionado = repositorioGrupo.SelecionarPorId(grupo.Id);
 
         Assert.IsNotNull(grupoSelecionado);
         Assert.AreEqual(grupo, grupoSelecionado);
@@ -61,13 +51,14 @@ public class RepositorioGrupoAutomoveisEmOrmTestes
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
-        repositorio.Excluir(grupo);
+        repositorioGrupo.Excluir(grupo);
 
-        var grupoSelecionado = repositorio.SelecionarPorId(grupo.Id);
+        var grupoSelecionado = repositorioGrupo.SelecionarPorId(grupo.Id);
 
-        var grupos = repositorio.SelecionarTodos();
+        var grupos = repositorioGrupo.SelecionarTodos();
 
         Assert.IsNull(grupoSelecionado);
         Assert.AreEqual(0, grupos.Count);

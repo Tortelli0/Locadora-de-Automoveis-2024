@@ -4,94 +4,85 @@ using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
+using LocadoraAutomoveis.Testes.Integracao.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Integracao.ModuloAutomoveis;
 
 [TestClass]
 [TestCategory("Integração")]
-public class RepositorioAutomoveisEmOrmTestes
+public class RepositorioAutomoveisEmOrmTestes : RepositorioEmOrmTestesBase
 {
-	private LocadoraDbContext dbContext;
-	private RepositorioAutomoveisEmOrm repositorio;
-	private RepositorioGrupoAutomoveisEmOrm repositorioGrupo;
-
-	[TestInitialize]
-	public void Inicializar()
-	{
-		dbContext = new LocadoraDbContext();
-		
-		dbContext.Automoveis.RemoveRange(dbContext.Automoveis);
-
-		repositorio = new RepositorioAutomoveisEmOrm(dbContext);
-		repositorioGrupo = new RepositorioGrupoAutomoveisEmOrm(dbContext);
-
-		BuilderSetup.SetCreatePersistenceMethod<Automovel>(repositorio.Inserir);
-		BuilderSetup.SetCreatePersistenceMethod<GrupoAutomoveis>(repositorioGrupo.Inserir);
-	}
-
 	[TestMethod]
 	public void Deve_Inserir_Automoveis()
 	{
-		//Arrange
-		var grupo = Builder<GrupoAutomoveis>
-			.CreateNew()
-			.With(g => g.Id = 0)
-			.Persist();
+        var grupo = Builder<GrupoAutomoveis>
+            .CreateNew()
+            .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivelEnum.Diesel, 10, grupo.Id);
+        var veiculo = Builder<Automovel>
+            .CreateNew()
+            .With(v => v.Id = 0)
+            .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		//Act
-		repositorio.Inserir(automovel);
+        var veiculoSelecionado = repositorioAutomovel.SelecionarPorId(veiculo.Id);
 
-		var automovelSelecionado = repositorio.SelecionarPorId(automovel.Id);
-
-		//Assert
-		Assert.IsNotNull(automovelSelecionado);
-		Assert.AreEqual(automovel, automovelSelecionado);
-	}
+        Assert.IsNotNull(veiculoSelecionado);
+        Assert.AreEqual(veiculo, veiculoSelecionado);
+    }
 
 	[TestMethod]
 	public void Deve_Editar_Automoveis()
 	{
-		var grupo = Builder<GrupoAutomoveis>
-			.CreateNew()
-			.With(g => g.Id = 0)
-			.Persist();
-		
-		var automovel = new Automovel("teste", "teste", "teste", TipoCombustivelEnum.Alcool, 10, grupo.Id);
+        var grupo = Builder<GrupoAutomoveis>
+            .CreateNew()
+            .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		repositorio.Editar(automovel);
+        var veiculo = Builder<Automovel>
+            .CreateNew()
+            .With(v => v.Id = 0)
+            .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		var automovelSelecionado = repositorio.SelecionarPorId(automovel.Id);
+        veiculo.Modelo = "Novo Modelo";
 
-		Assert.IsNotNull(automovelSelecionado);
-		Assert.AreEqual(automovel, automovelSelecionado);
-	}
+        repositorioAutomovel.Editar(veiculo);
+
+        var veiculoSelecionado = repositorioAutomovel.SelecionarPorId(veiculo.Id);
+
+        Assert.IsNotNull(veiculoSelecionado);
+        Assert.AreEqual(veiculo, veiculoSelecionado);
+    }
 
 	[TestMethod]
 	public void Deve_Excluir_Automoveis()
 	{
-		//Arrange
-		var grupo = Builder<GrupoAutomoveis>
-			.CreateNew()
-			.With(g => g.Id = 0)
-			.Persist();
+        var grupo = Builder<GrupoAutomoveis>
+            .CreateNew()
+            .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		var automovel = Builder<Automovel>
-			.CreateNew()
-			.With(v => v.GrupoAutomoveis = grupo)
-			.With(g => g.Id = 0)
-			.Persist();
+        var veiculo = Builder<Automovel>
+            .CreateNew()
+            .With(v => v.Id = 0)
+            .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		//Act
-		repositorio.Excluir(automovel);
+        repositorioAutomovel.Excluir(veiculo);
 
-		var automovelSelecionado = repositorio.SelecionarPorId(automovel.Id);
+        var veiculoSelecionado = repositorioAutomovel.SelecionarPorId(veiculo.Id);
 
-		var automoveis = repositorio.SelecionarTodos();
+        var veiculos = repositorioAutomovel.SelecionarTodos();
 
-		//Assert
-		Assert.IsNull(automovelSelecionado);
-		Assert.AreEqual(0, automoveis.Count);
+        Assert.IsNull(veiculoSelecionado);
+        Assert.AreEqual(0, veiculos.Count);
 	}
 }

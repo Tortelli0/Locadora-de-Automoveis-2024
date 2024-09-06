@@ -2,39 +2,26 @@
 using LocadoraAutomoveis.Dominio.ModuloTaxa;
 using LocadoraAutomoveis.Infra.Orm.Compartilhado;
 using LocadoraAutomoveis.Infra.Orm.ModuloTaxaEmOrm;
+using LocadoraAutomoveis.Testes.Integracao.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Integracao.ModuloTaxa;
 
 [TestClass]
 [TestCategory("Integração")]
-public class RepositorioTaxaEmOrmTestes
+public class RepositorioTaxaEmOrmTestes : RepositorioEmOrmTestesBase
 {
-	private LocadoraDbContext dbContext;
-	private RepositorioTaxaEmOrm repositorio;
-
-	[TestInitialize]
-	public void Inicializar()
-	{
-		dbContext = new LocadoraDbContext();
-
-		dbContext.Taxas.RemoveRange(dbContext.Taxas);
-
-		repositorio = new RepositorioTaxaEmOrm(dbContext);
-
-		BuilderSetup.SetCreatePersistenceMethod<Taxa>(repositorio.Inserir);
-	}
-
 	[TestMethod]
 	public void Deve_Inserir_Taxa()
 	{
 		var taxa = Builder<Taxa>
 			.CreateNew()
 			.With(t => t.Id = 0)
-			.Build();
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Build();
 
-		repositorio.Inserir(taxa);
+		repositorioTaxa.Inserir(taxa);
 
-		var taxaSelecionada = repositorio.SelecionarPorId(taxa.Id);
+		var taxaSelecionada = repositorioTaxa.SelecionarPorId(taxa.Id);
 
 		Assert.IsNotNull(taxaSelecionada);
 		Assert.AreEqual(taxa, taxaSelecionada);
@@ -46,14 +33,15 @@ public class RepositorioTaxaEmOrmTestes
 		var taxa = Builder<Taxa>
 			.CreateNew()
 			.With(t => t.Id = 0)
-			.Persist();
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
 		taxa.Nome = "Taxa Atualizada";
 		taxa.Valor = 100.0m;
 
-		repositorio.Editar(taxa);
+		repositorioTaxa.Editar(taxa);
 
-		var taxaSelecionada = repositorio.SelecionarPorId(taxa.Id);
+		var taxaSelecionada = repositorioTaxa.SelecionarPorId(taxa.Id);
 
 		Assert.IsNotNull(taxaSelecionada);
 		Assert.AreEqual(taxa, taxaSelecionada);
@@ -65,13 +53,14 @@ public class RepositorioTaxaEmOrmTestes
 		var taxa = Builder<Taxa>
 			.CreateNew()
 			.With(t => t.Id = 0)
-			.Persist();
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
+            .Persist();
 
-		repositorio.Excluir(taxa);
+		repositorioTaxa.Excluir(taxa);
 
-		var taxaSelecionada = repositorio.SelecionarPorId(taxa.Id);
+		var taxaSelecionada = repositorioTaxa.SelecionarPorId(taxa.Id);
 
-		var taxas = repositorio.SelecionarTodos();
+		var taxas = repositorioTaxa.SelecionarTodos();
 
 		Assert.IsNull(taxaSelecionada);
 		Assert.AreEqual(0, taxas.Count);

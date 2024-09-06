@@ -21,28 +21,33 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var automovel = Builder<Automovel>
             .CreateNew()
             .With(v => v.Id = 0)
             .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var cliente = Builder<Cliente>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var condutor = Builder<Condutor>
             .CreateNew()
             .With(c => c.Id = 0)
             .With(c => c.ClienteId = cliente.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var configCombustivel = Builder<ConfiguracaoCombustivel>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var locacao = Builder<Locacao>
@@ -53,6 +58,7 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
             .With(l => l.ConfiguracaoCombustivelId = configCombustivel.Id)
             .With(l => l.DataLocacao = DateTime.Now)
             .With(l => l.DevolucaoPrevista = DateTime.Now.AddDays(3))
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Build();
 
         // Act
@@ -72,28 +78,33 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var automovel = Builder<Automovel>
             .CreateNew()
             .With(v => v.Id = 0)
             .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var cliente = Builder<Cliente>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var condutor = Builder<Condutor>
             .CreateNew()
             .With(c => c.Id = 0)
             .With(c => c.ClienteId = cliente.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var configCombustivel = Builder<ConfiguracaoCombustivel>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var locacao = Builder<Locacao>
@@ -104,6 +115,7 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
             .With(l => l.ConfiguracaoCombustivelId = configCombustivel.Id)
             .With(l => l.DataLocacao = DateTime.Now)
             .With(l => l.DevolucaoPrevista = DateTime.Now.AddDays(3))
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         locacao.DevolucaoPrevista = locacao.DevolucaoPrevista.AddDays(2);
@@ -125,28 +137,33 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
         var grupo = Builder<GrupoAutomoveis>
             .CreateNew()
             .With(g => g.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var automovel = Builder<Automovel>
             .CreateNew()
             .With(v => v.Id = 0)
             .With(v => v.GrupoAutomoveisId = grupo.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var cliente = Builder<Cliente>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var condutor = Builder<Condutor>
             .CreateNew()
             .With(c => c.Id = 0)
             .With(c => c.ClienteId = cliente.Id)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var configCombustivel = Builder<ConfiguracaoCombustivel>
             .CreateNew()
             .With(c => c.Id = 0)
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         var locacao = Builder<Locacao>
@@ -157,6 +174,7 @@ public class RepositorioLocacaoEmOrmTestes : RepositorioEmOrmTestesBase
             .With(l => l.ConfiguracaoCombustivelId = configCombustivel.Id)
             .With(l => l.DataLocacao = DateTime.Now)
             .With(l => l.DevolucaoPrevista = DateTime.Now.AddDays(3))
+            .With(g => g.EmpresaId = usuarioAutenticado.Id)
             .Persist();
 
         // Act
