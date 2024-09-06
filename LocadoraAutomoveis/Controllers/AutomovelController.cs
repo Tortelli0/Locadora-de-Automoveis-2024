@@ -1,22 +1,25 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.Serviços;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class AutomovelController : WebControllerBase
 {
 	private readonly ServicoAutomovel servico;
 	private readonly ServicoGrupoAutomoveis servicoGrupos;
 	private readonly IMapper mapeador;
 
-	public AutomovelController(ServicoAutomovel servico, ServicoGrupoAutomoveis servicoGrupos, IMapper mapeador)
-	{
+	public AutomovelController(ServicoAutenticacao servicoAuth, ServicoAutomovel servico, ServicoGrupoAutomoveis servicoGrupos, IMapper mapeador) : base(servicoAuth)
+    {
 		this.servico = servico;
 		this.servicoGrupos = servicoGrupos;
 		this.mapeador = mapeador;
@@ -24,7 +27,7 @@ public class AutomovelController : WebControllerBase
 
 	public IActionResult Listar()
 	{
-		var resultado = servico.SelecionarTodos();
+		var resultado = servico.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultado.IsFailed)
 		{
@@ -78,7 +81,7 @@ public class AutomovelController : WebControllerBase
 			return RedirectToAction(nameof(Listar));
 		}
 
-		var resultadoGrupos = servicoGrupos.SelecionarTodos();
+		var resultadoGrupos = servicoGrupos.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultadoGrupos.IsFailed)
 		{
@@ -187,7 +190,7 @@ public class AutomovelController : WebControllerBase
 
 	private FormularioAutomovelViewModel? CarregarDadosFormulario(FormularioAutomovelViewModel? dadosPrevios = null)
 	{
-		var resultadoGrupos = servicoGrupos.SelecionarTodos();
+		var resultadoGrupos = servicoGrupos.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultadoGrupos.IsFailed)
 		{

@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloCliente;
 using LocadoraAutomoveis.Aplicacao.ModuloCondutor;
 using LocadoraAutomoveis.Dominio.ModuloCondutor;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class CondutorController : WebControllerBase
 {
     private readonly ServicoCondutor servico;
     private readonly ServicoCliente servicoCliente;
     private readonly IMapper mapeador;
 
-    public CondutorController(
-        ServicoCondutor servico,
-        ServicoCliente servicoCliente,
-        IMapper mapeador)
+    public CondutorController(ServicoAutenticacao servicoAuth, ServicoCondutor servico, ServicoCliente servicoCliente, IMapper mapeador) : base(servicoAuth)
     {
         this.servico = servico;
         this.servicoCliente = servicoCliente;
@@ -27,7 +27,7 @@ public class CondutorController : WebControllerBase
 
     public IActionResult Listar()
     {
-        var resultado = servico.SelecionarTodos();
+        var resultado = servico.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {
@@ -45,7 +45,7 @@ public class CondutorController : WebControllerBase
 
     public IActionResult SelecionarCliente()
     {
-        var clientesResult = servicoCliente.SelecionarTodos();
+        var clientesResult = servicoCliente.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (clientesResult.IsFailed)
             return RedirectToAction("Index", "Home");

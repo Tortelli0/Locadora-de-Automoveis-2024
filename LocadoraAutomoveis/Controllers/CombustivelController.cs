@@ -1,18 +1,21 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloCombustivel;
 using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class CombustivelController : WebControllerBase
 {
     private readonly ServicoCombustivel servicoCombustivel;
     private readonly IMapper mapeador;
 
-    public CombustivelController(ServicoCombustivel servicoCombustivel, IMapper mapeador)
+    public CombustivelController(ServicoAutenticacao servicoAuth, ServicoCombustivel servicoCombustivel, IMapper mapeador) : base(servicoAuth)
     {
         this.servicoCombustivel = servicoCombustivel;
         this.mapeador = mapeador;
@@ -20,7 +23,7 @@ public class CombustivelController : WebControllerBase
 
     public IActionResult Configurar()
     {
-        var resultado = servicoCombustivel.ObterConfiguracao();
+        var resultado = servicoCombustivel.ObterConfiguracao(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
             return RedirectToAction("Index", "Home");

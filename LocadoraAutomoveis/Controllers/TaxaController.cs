@@ -1,26 +1,29 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxa;
 using LocadoraAutomoveis.Dominio.ModuloTaxa;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class TaxaController : WebControllerBase
 {
 	private readonly ServicoTaxa servico;
 	private readonly IMapper mapeador;
 
-	public TaxaController(ServicoTaxa servico, IMapper mapeador)
-	{
+	public TaxaController(ServicoAutenticacao servicoAuth, ServicoTaxa servico, IMapper mapeador) : base(servicoAuth)
+    {
 		this.servico = servico;
 		this.mapeador = mapeador;
 	}
 
 	public IActionResult Listar()
 	{
-		var resultado = servico.SelecionarTodos();
+		var resultado = servico.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultado.IsFailed)
 		{

@@ -19,7 +19,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand fw-semibold fs-4" asp-controller="Home" asp-action="Index">Locadora de Automoveis</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,7 +27,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex">
 	                <ul class="navbar-nav flex-grow-1 align-items-center justify-content-end">
 						@if (User.Identity is not null && User.Identity.IsAuthenticated)
 						{
@@ -55,6 +55,14 @@
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-controller="Locacao" asp-action="Listar">Locações</a>
 							</li>
+
+							@if (User.IsInRole("Empresa"))
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="Funcionario" asp-action="Listar">Funcionários</a>
+								</li>
+							}
+
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-controller="Combustivel" asp-action="Configurar"><i class="bi bi-gear-fill"></i></a>
 							</li>

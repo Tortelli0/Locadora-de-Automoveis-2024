@@ -1,22 +1,25 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.Serviços;
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class PlanoCobrancaController : WebControllerBase
 {
 	private readonly ServicoPlanoCobranca servico;
 	private readonly ServicoGrupoAutomoveis servicoGrupos;
 	private readonly IMapper mapeador;
 
-	public PlanoCobrancaController(ServicoPlanoCobranca servico, ServicoGrupoAutomoveis servicoGrupos, IMapper mapeador)
-	{
+	public PlanoCobrancaController(ServicoAutenticacao servicoAuth, ServicoPlanoCobranca servico, ServicoGrupoAutomoveis servicoGrupos, IMapper mapeador) : base(servicoAuth)
+    {
 		this.servico = servico;
 		this.servicoGrupos = servicoGrupos;
 		this.mapeador = mapeador;
@@ -24,7 +27,7 @@ public class PlanoCobrancaController : WebControllerBase
 
 	public IActionResult Listar()
 	{
-		var resultado = servico.SelecionarTodos();
+		var resultado = servico.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultado.IsFailed)
 		{
@@ -162,7 +165,7 @@ public class PlanoCobrancaController : WebControllerBase
 
 	private FormularioPlanoCobrancaViewModel? CarregarDadosFormulario(FormularioPlanoCobrancaViewModel? dadosPrevios = null)
 	{
-		var resultadoGrupos = servicoGrupos.SelecionarTodos();
+		var resultadoGrupos = servicoGrupos.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
 		if (resultadoGrupos.IsFailed)
 		{

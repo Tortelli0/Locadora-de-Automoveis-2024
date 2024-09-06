@@ -26,4 +26,11 @@ public class RepositorioAutomoveisEmOrm : RepositorioBaseEmOrm<Automovel>, IRepo
 			.Include(v => v.GrupoAutomoveis)
 			.ToList();
 	}
+
+    public List<Automovel> Filtrar(Func<Automovel, bool> predicate)
+    {
+        return dbContext.Automoveis
+            .Where(predicate)
+            .ToList();
+    }
 }

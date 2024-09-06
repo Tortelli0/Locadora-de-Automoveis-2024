@@ -1,6 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LocadoraAutomoveis.Infra.Orm.ModuloCombustivel;
 
@@ -29,5 +30,16 @@ public class MapeadorConfiguracaoCombustivel : IEntityTypeConfiguration<Configur
         builder.Property(c => c.ValorAlcool)
             .HasColumnType("decimal(18,2)")
             .IsRequired();
+
+        builder.Property(c => c.EmpresaId)
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id")
+            .IsRequired();
+            
+
+        builder.HasOne(c => c.Empresa)
+            .WithMany()
+            .HasForeignKey(f => f.EmpresaId)
+            .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
     }
 }

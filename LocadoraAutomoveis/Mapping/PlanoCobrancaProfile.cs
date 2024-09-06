@@ -9,8 +9,10 @@ public class PlanoCobrancaProfile : Profile
 {
     public PlanoCobrancaProfile()
     {
-		CreateMap<InserirPlanoCobrancaViewModel, PlanoCobranca>();
-		CreateMap<EditarPlanoCobrancaViewModel, PlanoCobranca>();
+		CreateMap<InserirPlanoCobrancaViewModel, PlanoCobranca>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>());
+
+        CreateMap<EditarPlanoCobrancaViewModel, PlanoCobranca>();
 
 		CreateMap<PlanoCobranca, ListarPlanoCobrancaViewModel>()
 			.ForMember(dest => dest.GrupoAutomoveis, opt => opt.MapFrom(src => src.GrupoAutomoveis!.Nome));

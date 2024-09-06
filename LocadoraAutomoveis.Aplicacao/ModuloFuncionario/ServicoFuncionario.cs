@@ -99,8 +99,7 @@ public class ServicoFuncionario
 
     public Result<List<Funcionario>> SelecionarFuncionariosDaEmpresa(int empresaId)
     {
-        var funcionarios = repositorioFuncionario
-            .SelecionarTodos(f => f.EmpresaId == empresaId);
+        var funcionarios = repositorioFuncionario.SelecionarTodos(f => f.EmpresaId == empresaId);
 
         return Result.Ok(funcionarios);
     }

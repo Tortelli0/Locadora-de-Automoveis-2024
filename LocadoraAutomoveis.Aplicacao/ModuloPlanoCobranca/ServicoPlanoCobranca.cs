@@ -61,9 +61,9 @@ public class ServicoPlanoCobranca
 		return Result.Ok(planoCobranca);
 	}
 
-	public Result<List<PlanoCobranca>> SelecionarTodos()
+	public Result<List<PlanoCobranca>> SelecionarTodos(int empresaId)
 	{
-		var planosCobranca = repositoiroPlanoCobranca.SelecionarTodos();
+		var planosCobranca = repositoiroPlanoCobranca.Filtrar(g => g.EmpresaId == empresaId);
 
 		return Result.Ok(planosCobranca);
 	}

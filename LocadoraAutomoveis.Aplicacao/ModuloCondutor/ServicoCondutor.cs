@@ -70,9 +70,9 @@ public class ServicoCondutor
         return Result.Ok(condutor);
     }
 
-    public Result<List<Condutor>> SelecionarTodos()
+    public Result<List<Condutor>> SelecionarTodos(int empresaId)
     {
-        var condutores = repositorioCondutor.SelecionarTodos();
+        var condutores = repositorioCondutor.Filtrar(g => g.EmpresaId == empresaId);
 
         return Result.Ok(condutores);
     }

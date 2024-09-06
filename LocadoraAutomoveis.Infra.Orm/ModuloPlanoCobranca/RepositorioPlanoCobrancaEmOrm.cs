@@ -30,6 +30,14 @@ public class RepositorioPlanoCobrancaEmOrm : RepositorioBaseEmOrm<PlanoCobranca>
 			.ToList();
 	}
 
+    public List<PlanoCobranca> Filtrar(Func<PlanoCobranca, bool> predicate)
+    {
+        return ObterRegistros()
+            .Include(p => p.GrupoAutomoveis)
+            .Where(predicate)
+            .ToList();
+    }
+
     public PlanoCobranca FiltarPlano(Func<PlanoCobranca, bool> predicate)
     {
         return ObterRegistros()

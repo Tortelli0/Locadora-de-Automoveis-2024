@@ -69,5 +69,14 @@ public class MapeadorLocacao : IEntityTypeConfiguration<Locacao>
         builder.HasMany(l => l.TaxasSelecionadas)
             .WithMany(t => t.Locacoes)
             .UsingEntity(j => j.ToTable("TBLocacaoTaxa"));
+
+        builder.Property(c => c.EmpresaId)
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id");
+
+        builder.HasOne(c => c.Empresa)
+            .WithMany()
+            .HasForeignKey(f => f.EmpresaId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

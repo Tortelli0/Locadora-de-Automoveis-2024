@@ -43,5 +43,15 @@ public class MapeadorAutomoveis : IEntityTypeConfiguration<Automovel>
 			.WithMany(g => g.Automoveis)
 			.HasConstraintName("FK_TbAutomovel_TbGrupoAutomovel")
 			.OnDelete(DeleteBehavior.Restrict);
-	}
+
+        builder.Property(c => c.EmpresaId)
+            .HasColumnType("int")
+            .HasColumnName("Empresa_Id")
+            .IsRequired();
+
+        builder.HasOne(c => c.Empresa)
+            .WithMany()
+            .HasForeignKey(f => f.EmpresaId)
+            .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
+    }
 }

@@ -1,18 +1,21 @@
 ﻿using AutoMapper;
+using LocadoraAutomoveis.Aplicacao.ModuloAutenticacao;
 using LocadoraAutomoveis.Aplicacao.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.WebApp.Controllers.Compartilhado;
 using LocadoraAutomoveis.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraAutomoveis.WebApp.Controllers;
 
+[Authorize(Roles = "Empresa,Funcionario")]
 public class ClienteController : WebControllerBase
 {
     private readonly ServicoCliente servico;
     private readonly IMapper mapeador;
 
-    public ClienteController(ServicoCliente servico, IMapper mapeador)
+    public ClienteController(ServicoAutenticacao servicoAuth, ServicoCliente servico, IMapper mapeador) : base(servicoAuth)
     {
         this.servico = servico;
         this.mapeador = mapeador;
@@ -20,7 +23,7 @@ public class ClienteController : WebControllerBase
 
     public IActionResult Listar()
     {
-        var resultado = servico.SelecionarTodos();
+        var resultado = servico.SelecionarTodos(EmpresaId.GetValueOrDefault());
 
         if (resultado.IsFailed)
         {

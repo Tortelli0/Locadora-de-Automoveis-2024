@@ -60,9 +60,9 @@ public class ServicoAutomovel
 		return Result.Ok(automovel);
 	}
 
-	public Result<List<Automovel>> SelecionarTodos()
+	public Result<List<Automovel>> SelecionarTodos(int empresaId)
 	{
-		var automoveis = repositorioAutomovel.SelecionarTodos();
+		var automoveis = repositorioAutomovel.Filtrar(g => g.EmpresaId == empresaId);
 
 		return Result.Ok(automoveis);
 	}

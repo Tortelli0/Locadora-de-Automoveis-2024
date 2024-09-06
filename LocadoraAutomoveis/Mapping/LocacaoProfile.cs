@@ -3,6 +3,7 @@ using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxa;
 using LocadoraAutomoveis.Dominio.ModuloLocacao;
+using LocadoraAutomoveis.WebApp.Mapping.Resolvers;
 using LocadoraAutomoveis.WebApp.Models;
 
 namespace LocadoraAutomoveis.WebApp.Mapping;
@@ -12,6 +13,7 @@ public class LocacaoProfile : Profile
     public LocacaoProfile()
     {
         CreateMap<InserirLocacaoViewModel, Locacao>()
+            .ForMember(dest => dest.EmpresaId, opt => opt.MapFrom<EmpresaIdValueResolver>())
             .ForMember(l => l.TaxasSelecionadas, opt => opt.MapFrom<TaxasSelecionadasValueResolver>());
 
         CreateMap<RealizarDevolucaoViewModel, Locacao>()

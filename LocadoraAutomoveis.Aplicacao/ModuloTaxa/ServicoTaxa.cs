@@ -67,9 +67,9 @@ public class ServicoTaxa
 		return Result.Ok(taxa);
 	}
 
-	public Result<List<Taxa>> SelecionarTodos()
-	{
-		var taxas = repositorioTaxa.SelecionarTodos();
+	public Result<List<Taxa>> SelecionarTodos(int empresaId)
+    {
+        var taxas = repositorioTaxa.Filtrar(g => g.EmpresaId == empresaId);
 
 		return Result.Ok(taxas);
 	}

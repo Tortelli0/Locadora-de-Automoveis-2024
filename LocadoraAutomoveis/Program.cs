@@ -4,6 +4,7 @@ using LocadoraAutomoveis.Aplicacao.ModuloAutomoveis;
 using LocadoraAutomoveis.Aplicacao.ModuloCliente;
 using LocadoraAutomoveis.Aplicacao.ModuloCombustivel;
 using LocadoraAutomoveis.Aplicacao.ModuloCondutor;
+using LocadoraAutomoveis.Aplicacao.ModuloFuncionario;
 using LocadoraAutomoveis.Aplicacao.ModuloLocacao;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxa;
@@ -13,6 +14,7 @@ using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using LocadoraAutomoveis.Dominio.ModuloCondutor;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloLocacao;
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
@@ -22,6 +24,7 @@ using LocadoraAutomoveis.Infra.Orm.ModuloAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloCliente;
 using LocadoraAutomoveis.Infra.Orm.ModuloCombustivel;
 using LocadoraAutomoveis.Infra.Orm.ModuloCondutor;
+using LocadoraAutomoveis.Infra.Orm.ModuloFuncionario;
 using LocadoraAutomoveis.Infra.Orm.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Infra.Orm.ModuloLocacao;
 using LocadoraAutomoveis.Infra.Orm.ModuloPlanoCobranca;
@@ -48,6 +51,7 @@ public class Program
         builder.Services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
         builder.Services.AddScoped<IRepositorioCondutor, RepositorioCondutorEmOrm>();
         builder.Services.AddScoped<IRepositorioLocacao, RepositorioLocacaoEmOrm>();
+        builder.Services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
 
         builder.Services.AddScoped<IRepositorioConfiguracaoCombustivel, RepositorioConfiguracaoCombustivelEmOrm>();
 
@@ -59,6 +63,7 @@ public class Program
         builder.Services.AddScoped<ServicoCondutor>();
         builder.Services.AddScoped<ServicoCombustivel>();
         builder.Services.AddScoped<ServicoLocacao>();
+        builder.Services.AddScoped<ServicoFuncionario>();
 
         builder.Services.AddScoped<FotoValueResolver>();
         builder.Services.AddScoped<GrupoAutomoveisResolver>();
@@ -69,6 +74,7 @@ public class Program
         builder.Services.AddScoped<AutomoveisValueResolver>();
         builder.Services.AddScoped<ValorParcialValueResolver>();
         builder.Services.AddScoped<ValorTotalValueResolver>();
+        builder.Services.AddScoped<EmpresaIdValueResolver>();
 
 
         builder.Services.AddAutoMapper(cfg =>

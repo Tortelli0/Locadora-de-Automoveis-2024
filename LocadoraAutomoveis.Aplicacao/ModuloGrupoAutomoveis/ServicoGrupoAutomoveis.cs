@@ -55,9 +55,9 @@ public class ServicoGrupoAutomoveis
         return Result.Ok(grupoAutomoveis);
     }
 
-    public Result<List<GrupoAutomoveis>> SelecionarTodos()
+    public Result<List<GrupoAutomoveis>> SelecionarTodos(int empresaId)
     {
-        var gruposAutomoveis = repositorioGrupoAutomoveis.SelecionarTodos();
+        var gruposAutomoveis = repositorioGrupoAutomoveis.Filtrar(g => g.EmpresaId == empresaId);
 
         return Result.Ok(gruposAutomoveis);
     }
