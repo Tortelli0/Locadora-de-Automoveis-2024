@@ -27,9 +27,10 @@ public class RepositorioGrupoAutomoveisEmOrmTestes
     [TestMethod]
     public void Deve_Inserir_GrupoAutomoveis()
     {
-	    var grupo = new GrupoAutomoveis("teste");
-
-        repositorio.Inserir(grupo);
+        var grupo = Builder<GrupoAutomoveis>
+            .CreateNew()
+            .With(g => g.Id = 0)
+            .Persist();
 
         var grupoSelecionado = repositorio.SelecionarPorId(grupo.Id);
 
