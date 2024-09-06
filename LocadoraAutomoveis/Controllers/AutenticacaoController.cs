@@ -53,7 +53,7 @@ public class AutenticacaoController : WebControllerBase
     }
 
     [HttpPost]
-    public IActionResult Login(LoginViewModel loginVm, string? returnUrl = null)
+    public async Task<IActionResult> Login(LoginViewModel loginVm, string? returnUrl = null)
     {
         ViewBag.ReturnUrl = returnUrl;
 

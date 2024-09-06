@@ -3,6 +3,7 @@ using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCombustivel;
 using LocadoraAutomoveis.Dominio.ModuloCondutor;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloGrupoAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloLocacao;
 using LocadoraAutomoveis.Dominio.ModuloPlanoCobranca;
@@ -25,6 +26,7 @@ public class LocadoraDbContext : IdentityDbContext<Usuario, Perfil, int>
     public DbSet<Condutor> Condutores { get; set; }
     public DbSet<ConfiguracaoCombustivel> ConfiguracoesCombustiveis { get; set; }
     public DbSet<Locacao> Locacoes { get; set; }
+    public DbSet<Funcionario> Funcionarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
