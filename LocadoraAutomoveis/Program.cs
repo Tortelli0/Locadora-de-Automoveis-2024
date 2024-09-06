@@ -8,6 +8,7 @@ using LocadoraAutomoveis.Aplicacao.ModuloLocacao;
 using LocadoraAutomoveis.Aplicacao.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Aplicacao.ModuloTaxa;
 using LocadoraAutomoveis.Aplicacao.Serviços;
+using LocadoraAutomoveis.Dominio.ModuloAutenticacao;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCombustivel;
@@ -27,6 +28,8 @@ using LocadoraAutomoveis.Infra.Orm.ModuloPlanoCobranca;
 using LocadoraAutomoveis.Infra.Orm.ModuloTaxaEmOrm;
 using LocadoraAutomoveis.WebApp.Mapping;
 using LocadoraAutomoveis.WebApp.Mapping.Resolvers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace LocadoraAutomoveis.WebApp;
 
@@ -67,11 +70,40 @@ public class Program
         builder.Services.AddScoped<ValorParcialValueResolver>();
         builder.Services.AddScoped<ValorTotalValueResolver>();
 
-        builder.Services.AddScoped<ServicoAutenticacao>();
 
         builder.Services.AddAutoMapper(cfg =>
         {
             cfg.AddMaps(Assembly.GetExecutingAssembly());
+        });
+
+        builder.Services.AddScoped<ServicoAutenticacao>();
+
+        builder.Services.AddIdentity<Usuario, Perfil>()
+            .AddEntityFrameworkStores<LocadoraDbContext>()
+            .AddDefaultTokenProviders();
+
+        builder.Services.Configure<IdentityOptions>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequiredLength = 3;
+            options.Password.RequiredUniqueChars = 1;
+        });
+
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = "AspNetCore.Cookies";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.SlidingExpiration = true;
+            });
+
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath = "/Autenticacao/Login";
+            options.AccessDeniedPath = "/Autenticacao/AcessoNegado";
         });
 
         builder.Services.AddControllersWithViews();
